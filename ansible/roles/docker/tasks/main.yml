@@ -30,6 +30,17 @@
   register: copy_result
   tags: [docker]
 
+- name: 'prepare default daemon configuration'
+  copy:
+    src: 'daemon.json'
+    dest: '/etc/docker/daemon.json'
+
+- name: 'enable docker systemd service'
+  service:
+    name: 'docker'
+    state: 'started'
+    enabled: 'yes'
+
 - name: Docker service is restarted
   service:
     name: docker
